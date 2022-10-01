@@ -5,7 +5,7 @@ import { io } from "socket.io-client";
 export const SocketContext = React.createContext();
 
 export default function SocketProvider({ children }) {
-	const socket = React.useRef(io("http://localhost:5000")).current;
+	const socket = React.useRef(io(process.env.REACT_APP_BACKEND_URI)).current;
 
 	useEffect(() => {
 		socket.on("connect", () => {

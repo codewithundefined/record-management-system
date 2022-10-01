@@ -7,7 +7,9 @@ function App() {
 	const [records, setRecords] = useState(null);
 
 	async function getRecords() {
-		const res = await axios.get("http://localhost:5000/read");
+		const res = await axios.get(
+			`${process.env.REACT_APP_BACKEND_URI}/read`
+		);
 		const data = res.data;
 		if (data.ok) {
 			setRecords(data.result.length > 0 ? [...data.result] : null);
