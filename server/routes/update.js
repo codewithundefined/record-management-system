@@ -80,7 +80,9 @@ router.post(
 					message: "A record has been updated",
 					action: "update",
 					data: {
-						...data,
+						// ...data,
+						title: data.title,
+						description: data.description,
 						_id: data.objectID,
 						images: data.priorImages
 							? [...images, ...data.priorImages]
