@@ -1,0 +1,17 @@
+.search-row {
+	display: flex !important;
+}
+
+.search-box {
+	flex: 80%;
+}
+
+.search-box .input {
+	width: 90%;
+}
+
+img {
+	display: block !important;
+	width: 100% !important;
+	height: 100% !important;
+}

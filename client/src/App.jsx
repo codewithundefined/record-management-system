@@ -1,7 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Button } from "semantic-ui-react";
+import { Container } from "semantic-ui-react";
 import RecordList from "./Components/RecordList";
+import TopHeader from "./Components/TopHeader";
+import SearchAndAddButtonBar from "./Components/SearchAndAddButtonBar";
+import "./Styles/App.css";
 
 function App() {
 	const [records, setRecords] = useState(null);
@@ -21,10 +24,13 @@ function App() {
 	}, []);
 
 	return (
-		<div className="App">
-			<Button>Click here</Button>
+		// <div className="App">
+		<Container className="">
+			<TopHeader text="Record Management System" />
+			<SearchAndAddButtonBar />
 			<RecordList records={records} setRecords={setRecords} />
-		</div>
+		</Container>
+		// </div>
 	);
 }
 

@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Record = require("../models/Record");
+const io = require("../index");
 const { body, validationResult } = require("express-validator");
 
 router.post("/", body("objectID").isString().trim(), async (req, res) => {
@@ -15,6 +16,12 @@ router.post("/", body("objectID").isString().trim(), async (req, res) => {
 				_id: data.objectID,
 			});
 
+			io.io.local.emit("message", {
+				message: "A records has been deleted",
+				action: "delete",
+				data: result,
+				_id: data.objectID,
+			});
 			return res.status(200).json({ ok: true, result });
 		}
 	} catch (error) {
