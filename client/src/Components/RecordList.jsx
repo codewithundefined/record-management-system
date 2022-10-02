@@ -1,6 +1,14 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { Button, Divider, Modal, Image, Input, Icon } from "semantic-ui-react";
+import {
+	Button,
+	Divider,
+	Modal,
+	Image,
+	Input,
+	Icon,
+	Table,
+} from "semantic-ui-react";
 import { SocketContext } from "./SocketProvider";
 
 export default function RecordList({ records, setRecords }) {
@@ -59,7 +67,78 @@ export default function RecordList({ records, setRecords }) {
 
 	return (
 		<div>
-			{records &&
+			{records && records?.length > 0 ? (
+				<Table celled>
+					<Table.Header>
+						<Table.Row>
+							<Table.HeaderCell>Title</Table.HeaderCell>
+							<Table.HeaderCell>Description</Table.HeaderCell>
+							<Table.HeaderCell>Created At</Table.HeaderCell>
+							<Table.HeaderCell negative> </Table.HeaderCell>
+						</Table.Row>
+					</Table.Header>
+
+					<Table.Body>
+						{records.map((record, index) => (
+							<Table.Row
+								// key={record._id}
+								key={index}
+								style={{
+									cursor: "pointer",
+								}}
+							>
+								<Table.Cell
+									onClick={() => {
+										setModalOpen(true);
+										setRecordIndex(index);
+									}}
+								>
+									{record.title}
+								</Table.Cell>
+								<Table.Cell
+									onClick={() => {
+										setModalOpen(true);
+										setRecordIndex(index);
+									}}
+								>
+									{record.description}
+								</Table.Cell>
+								<Table.Cell
+									onClick={() => {
+										setModalOpen(true);
+										setRecordIndex(index);
+									}}
+								>
+									{new Date(record.date).toDateString() +
+										" " +
+										new Date(
+											record.date
+										).toLocaleTimeString()}
+								</Table.Cell>
+								<Table.Cell textAlign="center">
+									<Button
+										negative
+										onClick={async () => {
+											setModalOpen(false);
+											const result = await axios.delete(
+												`${process.env.REACT_APP_BACKEND_URI}/delete/${record._id}`
+											);
+											console.log(result);
+										}}
+									>
+										<Icon fitted name="close" />
+									</Button>
+								</Table.Cell>
+							</Table.Row>
+						))}
+					</Table.Body>
+				</Table>
+			) : (
+				<div style={{ textAlign: "center" }}>
+					<h3>No Records Found</h3>
+				</div>
+			)}
+			{/* {records &&
 				records.map((record, index) => (
 					<div
 						key={index}
@@ -77,7 +156,7 @@ export default function RecordList({ records, setRecords }) {
 
 						<Divider />
 					</div>
-				))}
+				))} */}
 
 			<ViewAndUpdateModal
 				modalOpen={modalOpen}

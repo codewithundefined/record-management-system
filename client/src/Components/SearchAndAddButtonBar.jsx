@@ -8,6 +8,7 @@ import {
 	Modal,
 	Form,
 	Message,
+	Icon,
 } from "semantic-ui-react";
 
 export default function SearchAndAddButtonBar() {
@@ -15,17 +16,14 @@ export default function SearchAndAddButtonBar() {
 
 	return (
 		<Container className="search-row">
-			<Search
-				className="search-box"
-				size="mini"
-				placeholder="Search Record"
-				open={false}
-			></Search>
 			<Button
+				icon="plus"
 				onClick={() => setModalOpen((prev) => !prev)}
 				className="new-record-btn"
+				positive
+				size="tiny"
 			>
-				New Record
+				<Icon fitted size="large" name="plus" />
 			</Button>
 
 			<AddRecordModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
@@ -45,17 +43,10 @@ function AddRecordModal({ modalOpen, setModalOpen }) {
 		const formData = new FormData();
 		formData.append("title", title);
 		formData.append("description", description);
-		// formData.append("image", files[0]);
 		for (let i = 0; i < files.length; i++) {
 			formData.append("image", files[i]);
-			// formData.append(`image`, {
-			// 	uri: files[i].uri,
-			// 	type: files[i].type,
-			// 	name: files[i].name,
-			// });
 		}
 
-		console.log(formData.getAll("image"));
 		const result = await axios.post(
 			`${process.env.REACT_APP_BACKEND_URI}/create`,
 			formData,
@@ -65,7 +56,10 @@ function AddRecordModal({ modalOpen, setModalOpen }) {
 				},
 			}
 		);
-		console.log(result);
+		setModalOpen(false);
+		setTitle("");
+		setDescription("");
+		setFiles([]);
 	}
 
 	return (

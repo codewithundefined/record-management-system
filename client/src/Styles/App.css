@@ -1,5 +1,8 @@
 .search-row {
 	display: flex !important;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 1rem;
 }
 
 .search-box {
@@ -8,6 +11,14 @@
 
 .search-box .input {
 	width: 90%;
+}
+
+.new-record-btn {
+	padding: 2rem !important;
+	border-radius: 50% !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
 }
 
 img {

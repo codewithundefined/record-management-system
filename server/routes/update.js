@@ -74,7 +74,7 @@ router.post(
 					}
 				);
 
-				console.log(result);
+				let record = await Record.findOne({ _id: data.objectID });
 
 				io.io.emit("message", {
 					message: "A record has been updated",
@@ -87,6 +87,7 @@ router.post(
 						images: data.priorImages
 							? [...images, ...data.priorImages]
 							: images,
+						date: record.date,
 					},
 					_id: data.objectID,
 				});
